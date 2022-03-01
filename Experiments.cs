@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Grpc.Net.Client;
 using GrpcClockClient;
+using k8s;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 
@@ -18,6 +19,14 @@ namespace NFVRPMock
         {
             initLogger();
             l.LogInformation("Let's go!");
+
+            var kubeClient = GetKubeClient();
+            var list = kubeClient.ListNamespacedPod("default");
+            foreach (var item in list.Items)
+            {
+                Console.WriteLine(item.Metadata.Name);
+            }
+
             MakeClock().GetAwaiter().GetResult();
             GetClockStatus().GetAwaiter().GetResult();
         }
@@ -99,29 +108,14 @@ namespace NFVRPMock
             }
         }
 
-        private static KubeClient() {
+        private static IKubernetes GetKubeClient() {
             // Load from the default kubeconfig on the machine.
-
             var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
-
-
-
             // Load from a specific file:
-
-            var config = KubernetesClientConfiguration.BuildConfigFromConfigFile(Environment.GetEnvironmentVariable("KUBECONFIG"));
-
-
-
+            //// var config = KubernetesClientConfiguration.BuildConfigFromConfigFile(Environment.GetEnvironmentVariable("KUBECONFIG"));
             // Load from in-cluster configuration:
-
-            var config = KubernetesClientConfiguration.InClusterConfig()
-
-
-
-            // Use the config object to create a client.
-
-            var client = new Kubernetes(config);
+            //// var config = KubernetesClientConfiguration.InClusterConfig();
+            return new Kubernetes(config);
         }
-
     }
 }
