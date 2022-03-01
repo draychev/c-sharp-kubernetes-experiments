@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option go_package = "github.com/draychev/c-sharp-kubernetes-experiments/pkg/protos/clock";
+
+option csharp_namespace = "GrpcClockClient";
+
+package clock;
+
+// The Alarm service definition.
+service Alarm {
+  // Creates a new Alarm
+  rpc CreateAlarm (CreateAlarmRequest) returns (CreateAlarmResponse);
+
+  // Deletes a new Alarm
+  rpc DeleteAlarm (DeleteAlarmRequest) returns (DeleteAlarmResponse);
+
+  // Gets ste status of the Alarm creation
+  rpc GetStatus (StatusRequest) returns (StatusResponse);
+}
+
+// AlarmRequest is the request to create a new clock
+message CreateAlarmRequest {
+  string version = 1;
+  string subscription = 2;
+}
+
+// CreateAlarmResponse is the response from CreateAlarm RPC call.
+message CreateAlarmResponse {
+  string message = 1;
+}
+
+// DeleteAlarmRequest is the request to delete a clock.
+message DeleteAlarmRequest {
+  string version = 1;
+  string subscription = 2;
+}
+
+// DeleteAlarmResponse is the response from a request to delete a clock.
+message DeleteAlarmResponse {
+  string message = 1;
+}
+
+
+// StatusRequest is a request for status update.
+message StatusRequest {
+  string version = 1;
+  string subscription = 2;
+}
+
+// The response for a status update.
+message StatusResponse{
+  string message = 1;
+}

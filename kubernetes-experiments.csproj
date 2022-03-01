@@ -10,7 +10,7 @@
 
 
   <ItemGroup>
-    <Protobuf Include="./protos/the.proto" GrpcServices="Client" />
+    <Protobuf Include="./protos/clock.proto" GrpcServices="Client" />
   </ItemGroup>
 
 
