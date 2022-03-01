@@ -98,5 +98,30 @@ namespace NFVRPMock
                 }
             }
         }
+
+        private static KubeClient() {
+            // Load from the default kubeconfig on the machine.
+
+            var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+
+
+
+            // Load from a specific file:
+
+            var config = KubernetesClientConfiguration.BuildConfigFromConfigFile(Environment.GetEnvironmentVariable("KUBECONFIG"));
+
+
+
+            // Load from in-cluster configuration:
+
+            var config = KubernetesClientConfiguration.InClusterConfig()
+
+
+
+            // Use the config object to create a client.
+
+            var client = new Kubernetes(config);
+        }
+
     }
 }
