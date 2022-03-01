@@ -21,7 +21,7 @@ namespace NFVRPMock
             l.LogInformation("Let's go!");
 
             var kubeClient = GetKubeClient();
-            var list = kubeClient.ListNamespacedPod("default");
+            var list = kubeClient.ListNamespacedPod("kube-system");
             foreach (var item in list.Items)
             {
                 Console.WriteLine(item.Metadata.Name);
