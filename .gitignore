@@ -107,3 +107,4 @@ dapr-integration-config.yaml
 greeter
 
 obj/
+.vs
